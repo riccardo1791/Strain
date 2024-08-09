@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Apical Sparing Calculator</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+        h1 {
+            text-align: center;
+            color: #004085;
+        }
+        .small-text {
+            text-align: center;
+            font-size: 10px;
+            margin-top: -10px;
+            margin-bottom: 20px;
+            color: #6c757d;
+        }
+        .form-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .form-column {
+            width: 30%;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-align: center;
+            color: #004085;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 16px;
+            text-align: center;
+            background-color: #e9ecef;
+            color: #495057;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #004085;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #002752;
+        }
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #004085;
+        }
+    </style>
+</head>
+<body>
+    <h1>Apical Sparing Calculator</h1>
+    <div class="small-text">by Riccardo De Gioannis</div>
+    <form id="calculator-form">
+        <div class="form-container">
+            <div class="form-column">
+                <label for="apical">Apical</label>
+                <input type="number" step="0.1" id="apical1" required>
+                <input type="number" step="0.1" id="apical2" required>
+                <input type="number" step="0.1" id="apical3" required>
+                <input type="number" step="0.1" id="apical4" required>
+            </div>
+            <div class="form-column">
+                <label for="mid">Mid</label>
+                <input type="number" step="0.1" id="mid1" required>
+                <input type="number" step="0.1" id="mid2" required>
+                <input type="number" step="0.1" id="mid3" required>
+                <input type="number" step="0.1" id="mid4" required>
+                <input type="number" step="0.1" id="mid5" required>
+                <input type="number" step="0.1" id="mid6" required>
+            </div>
+            <div class="form-column">
+                <label for="temporary">Temporary</label>
+                <input type="number" step="0.1" id="temporary1" required>
+                <input type="number" step="0.1" id="temporary2" required>
+                <input type="number" step="0.1" id="temporary3" required>
+                <input type="number" step="0.1" id="temporary4" required>
+                <input type="number" step="0.1" id="temporary5" required>
+                <input type="number" step="0.1" id="temporary6" required>
+            </div>
+        </div>
+        
+        <button type="button" onclick="calculate()">Calculate</button>
+    </form>
+    
+    <div id="result"></div>
+    
+    <script>
+        function calculate() {
+            // Get values from the input fields
+            const apicalValues = [
+                parseFloat(document.getElementById('apical1').value),
+                parseFloat(document.getElementById('apical2').value),
+                parseFloat(document.getElementById('apical3').value),
+                parseFloat(document.getElementById('apical4').value)
+            ];
+            const midValues = [
+                parseFloat(document.getElementById('mid1').value),
+                parseFloat(document.getElementById('mid2').value),
+                parseFloat(document.getElementById('mid3').value),
+                parseFloat(document.getElementById('mid4').value),
+                parseFloat(document.getElementById('mid5').value),
+                parseFloat(document.getElementById('mid6').value)
+            ];
+            const temporaryValues = [
+                parseFloat(document.getElementById('temporary1').value),
+                parseFloat(document.getElementById('temporary2').value),
+                parseFloat(document.getElementById('temporary3').value),
+                parseFloat(document.getElementById('temporary4').value),
+                parseFloat(document.getElementById('temporary5').value),
+                parseFloat(document.getElementById('temporary6').value)
+            ];
+
+            // Calculate means
+            const meanApical = apicalValues.reduce((a, b) => a + b, 0) / apicalValues.length;
+            const meanMid = midValues.reduce((a, b) => a + b, 0) / midValues.length;
+            const meanTemporary = temporaryValues.reduce((a, b) => a + b, 0) / temporaryValues.length;
+
+            // Perform operation
+            const result = meanApical / (meanMid + meanTemporary);
+
+            // Display results
+            let message = `Mean Apical: ${meanApical.toFixed(1)}<br>`;
+            message += `Mean Mid: ${meanMid.toFixed(1)}<br>`;
+            message += `Mean Temporary: ${meanTemporary.toFixed(1)}<br>`;
+            message += `Result: ${result.toFixed(2)}<br>`;
+
+            if (result > 1) {
+                message += "Apical Sparing! ;)";
+            }
+
+            document.getElementById('result').innerHTML = message;
+        }
+    </script>
+</body>
+</html>
