@@ -73,10 +73,9 @@
             font-weight: bold;
             color: #004085;
         }
-        hr {
+        .divider {
             margin: 20px 0;
-            border: 0;
-            border-top: 1px solid #ced4da;
+            border-bottom: 2px solid #004085;
         }
     </style>
 </head>
@@ -87,28 +86,28 @@
         <div class="form-container">
             <div class="form-column">
                 <label for="apical">Apical</label>
-                <input type="text" id="apical1" required>
-                <input type="text" id="apical2" required>
-                <input type="text" id="apical3" required>
-                <input type="text" id="apical4" required>
+                <input type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]+" id="apical1" required>
+                <input type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]+" id="apical2" required>
+                <input type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]+" id="apical3" required>
+                <input type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]+" id="apical4" required>
             </div>
             <div class="form-column">
                 <label for="middle">Middle</label>
-                <input type="text" id="middle1" required>
-                <input type="text" id="middle2" required>
-                <input type="text" id="middle3" required>
-                <input type="text" id="middle4" required>
-                <input type="text" id="middle5" required>
-                <input type="text" id="middle6" required>
+                <input type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]+" id="middle1" required>
+                <input type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]+" id="middle2" required>
+                <input type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]+" id="middle3" required>
+                <input type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]+" id="middle4" required>
+                <input type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]+" id="middle5" required>
+                <input type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]+" id="middle6" required>
             </div>
             <div class="form-column">
                 <label for="basal">Basal</label>
-                <input type="text" id="basal1" required>
-                <input type="text" id="basal2" required>
-                <input type="text" id="basal3" required>
-                <input type="text" id="basal4" required>
-                <input type="text" id="basal5" required>
-                <input type="text" id="basal6" required>
+                <input type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]+" id="basal1" required>
+                <input type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]+" id="basal2" required>
+                <input type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]+" id="basal3" required>
+                <input type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]+" id="basal4" required>
+                <input type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]+" id="basal5" required>
+                <input type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]+" id="basal6" required>
             </div>
         </div>
         
@@ -118,34 +117,33 @@
     <div id="result"></div>
     
     <script>
-        function parseValue(value) {
-            // Replace comma with dot and parse as float
+        function parseInput(value) {
             return parseFloat(value.replace(',', '.'));
         }
 
         function calculate() {
-            // Get values from the input fields
+            // Get values from the input fields and convert them to float
             const apicalValues = [
-                parseValue(document.getElementById('apical1').value),
-                parseValue(document.getElementById('apical2').value),
-                parseValue(document.getElementById('apical3').value),
-                parseValue(document.getElementById('apical4').value)
+                parseInput(document.getElementById('apical1').value),
+                parseInput(document.getElementById('apical2').value),
+                parseInput(document.getElementById('apical3').value),
+                parseInput(document.getElementById('apical4').value)
             ];
             const middleValues = [
-                parseValue(document.getElementById('middle1').value),
-                parseValue(document.getElementById('middle2').value),
-                parseValue(document.getElementById('middle3').value),
-                parseValue(document.getElementById('middle4').value),
-                parseValue(document.getElementById('middle5').value),
-                parseValue(document.getElementById('middle6').value)
+                parseInput(document.getElementById('middle1').value),
+                parseInput(document.getElementById('middle2').value),
+                parseInput(document.getElementById('middle3').value),
+                parseInput(document.getElementById('middle4').value),
+                parseInput(document.getElementById('middle5').value),
+                parseInput(document.getElementById('middle6').value)
             ];
             const basalValues = [
-                parseValue(document.getElementById('basal1').value),
-                parseValue(document.getElementById('basal2').value),
-                parseValue(document.getElementById('basal3').value),
-                parseValue(document.getElementById('basal4').value),
-                parseValue(document.getElementById('basal5').value),
-                parseValue(document.getElementById('basal6').value)
+                parseInput(document.getElementById('basal1').value),
+                parseInput(document.getElementById('basal2').value),
+                parseInput(document.getElementById('basal3').value),
+                parseInput(document.getElementById('basal4').value),
+                parseInput(document.getElementById('basal5').value),
+                parseInput(document.getElementById('basal6').value)
             ];
 
             // Calculate means
@@ -154,16 +152,16 @@
             const meanBasal = basalValues.reduce((a, b) => a + b, 0) / basalValues.length;
 
             // Perform operation
-            const apicalSparingRatio = meanApical / (meanMiddle + meanBasal);
+            const result = meanApical / (meanMiddle + meanBasal);
 
             // Display results
             let message = `Mean Apical: ${meanApical.toFixed(1)}<br>`;
             message += `Mean Middle: ${meanMiddle.toFixed(1)}<br>`;
             message += `Mean Basal: ${meanBasal.toFixed(1)}<br>`;
-            message += `<hr>`;
-            message += `Apical Sparing Ratio: ${apicalSparingRatio.toFixed(2)}<br>`;
+            message += `<div class="divider"></div>`;
+            message += `Apical Sparing Ratio: ${result.toFixed(2)}<br>`;
 
-            if (apicalSparingRatio > 1) {
+            if (result > 1) {
                 message += "Apical Sparing! ;)";
             }
 
