@@ -41,7 +41,7 @@
             text-align: center;
             color: #004085;
         }
-        input[type="number"] {
+        input[type="text"] {
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
@@ -73,9 +73,10 @@
             font-weight: bold;
             color: #004085;
         }
-        #separator {
+        hr {
+            margin: 20px 0;
+            border: 0;
             border-top: 1px solid #ced4da;
-            margin: 15px 0;
         }
     </style>
 </head>
@@ -117,34 +118,34 @@
     <div id="result"></div>
     
     <script>
-        function parseInput(value) {
-            // Replace comma with a dot and parse as float
+        function parseValue(value) {
+            // Replace comma with dot and parse as float
             return parseFloat(value.replace(',', '.'));
         }
 
         function calculate() {
             // Get values from the input fields
             const apicalValues = [
-                parseInput(document.getElementById('apical1').value),
-                parseInput(document.getElementById('apical2').value),
-                parseInput(document.getElementById('apical3').value),
-                parseInput(document.getElementById('apical4').value)
+                parseValue(document.getElementById('apical1').value),
+                parseValue(document.getElementById('apical2').value),
+                parseValue(document.getElementById('apical3').value),
+                parseValue(document.getElementById('apical4').value)
             ];
             const middleValues = [
-                parseInput(document.getElementById('middle1').value),
-                parseInput(document.getElementById('middle2').value),
-                parseInput(document.getElementById('middle3').value),
-                parseInput(document.getElementById('middle4').value),
-                parseInput(document.getElementById('middle5').value),
-                parseInput(document.getElementById('middle6').value)
+                parseValue(document.getElementById('middle1').value),
+                parseValue(document.getElementById('middle2').value),
+                parseValue(document.getElementById('middle3').value),
+                parseValue(document.getElementById('middle4').value),
+                parseValue(document.getElementById('middle5').value),
+                parseValue(document.getElementById('middle6').value)
             ];
             const basalValues = [
-                parseInput(document.getElementById('basal1').value),
-                parseInput(document.getElementById('basal2').value),
-                parseInput(document.getElementById('basal3').value),
-                parseInput(document.getElementById('basal4').value),
-                parseInput(document.getElementById('basal5').value),
-                parseInput(document.getElementById('basal6').value)
+                parseValue(document.getElementById('basal1').value),
+                parseValue(document.getElementById('basal2').value),
+                parseValue(document.getElementById('basal3').value),
+                parseValue(document.getElementById('basal4').value),
+                parseValue(document.getElementById('basal5').value),
+                parseValue(document.getElementById('basal6').value)
             ];
 
             // Calculate means
@@ -153,16 +154,16 @@
             const meanBasal = basalValues.reduce((a, b) => a + b, 0) / basalValues.length;
 
             // Perform operation
-            const result = meanApical / (meanMiddle + meanBasal);
+            const apicalSparingRatio = meanApical / (meanMiddle + meanBasal);
 
             // Display results
             let message = `Mean Apical: ${meanApical.toFixed(1)}<br>`;
             message += `Mean Middle: ${meanMiddle.toFixed(1)}<br>`;
             message += `Mean Basal: ${meanBasal.toFixed(1)}<br>`;
-            message += `<div id="separator"></div>`;
-            message += `Apical Sparing Ratio: ${result.toFixed(2)}<br>`;
+            message += `<hr>`;
+            message += `Apical Sparing Ratio: ${apicalSparingRatio.toFixed(2)}<br>`;
 
-            if (result > 1) {
+            if (apicalSparingRatio > 1) {
                 message += "Apical Sparing! ;)";
             }
 
