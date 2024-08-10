@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Apical Sparing Calculator</title>
+    <title>Strain Calculator</title>
     <style>
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -73,37 +73,41 @@
             font-weight: bold;
             color: #004085;
         }
+        #separator {
+            border-top: 1px solid #ced4da;
+            margin: 15px 0;
+        }
     </style>
 </head>
 <body>
-    <h1>Apical Sparing Calculator</h1>
+    <h1>Strain Calculator</h1>
     <div class="small-text">by Riccardo De Gioannis</div>
     <form id="calculator-form">
         <div class="form-container">
             <div class="form-column">
                 <label for="apical">Apical</label>
-                <input type="number" step="0.1" id="apical1" required>
-                <input type="number" step="0.1" id="apical2" required>
-                <input type="number" step="0.1" id="apical3" required>
-                <input type="number" step="0.1" id="apical4" required>
+                <input type="text" id="apical1" required>
+                <input type="text" id="apical2" required>
+                <input type="text" id="apical3" required>
+                <input type="text" id="apical4" required>
             </div>
             <div class="form-column">
-                <label for="mid">Mid</label>
-                <input type="number" step="0.1" id="mid1" required>
-                <input type="number" step="0.1" id="mid2" required>
-                <input type="number" step="0.1" id="mid3" required>
-                <input type="number" step="0.1" id="mid4" required>
-                <input type="number" step="0.1" id="mid5" required>
-                <input type="number" step="0.1" id="mid6" required>
+                <label for="middle">Middle</label>
+                <input type="text" id="middle1" required>
+                <input type="text" id="middle2" required>
+                <input type="text" id="middle3" required>
+                <input type="text" id="middle4" required>
+                <input type="text" id="middle5" required>
+                <input type="text" id="middle6" required>
             </div>
             <div class="form-column">
-                <label for="temporary">Temporary</label>
-                <input type="number" step="0.1" id="temporary1" required>
-                <input type="number" step="0.1" id="temporary2" required>
-                <input type="number" step="0.1" id="temporary3" required>
-                <input type="number" step="0.1" id="temporary4" required>
-                <input type="number" step="0.1" id="temporary5" required>
-                <input type="number" step="0.1" id="temporary6" required>
+                <label for="basal">Basal</label>
+                <input type="text" id="basal1" required>
+                <input type="text" id="basal2" required>
+                <input type="text" id="basal3" required>
+                <input type="text" id="basal4" required>
+                <input type="text" id="basal5" required>
+                <input type="text" id="basal6" required>
             </div>
         </div>
         
@@ -113,44 +117,50 @@
     <div id="result"></div>
     
     <script>
+        function parseInput(value) {
+            // Replace comma with a dot and parse as float
+            return parseFloat(value.replace(',', '.'));
+        }
+
         function calculate() {
             // Get values from the input fields
             const apicalValues = [
-                parseFloat(document.getElementById('apical1').value),
-                parseFloat(document.getElementById('apical2').value),
-                parseFloat(document.getElementById('apical3').value),
-                parseFloat(document.getElementById('apical4').value)
+                parseInput(document.getElementById('apical1').value),
+                parseInput(document.getElementById('apical2').value),
+                parseInput(document.getElementById('apical3').value),
+                parseInput(document.getElementById('apical4').value)
             ];
-            const midValues = [
-                parseFloat(document.getElementById('mid1').value),
-                parseFloat(document.getElementById('mid2').value),
-                parseFloat(document.getElementById('mid3').value),
-                parseFloat(document.getElementById('mid4').value),
-                parseFloat(document.getElementById('mid5').value),
-                parseFloat(document.getElementById('mid6').value)
+            const middleValues = [
+                parseInput(document.getElementById('middle1').value),
+                parseInput(document.getElementById('middle2').value),
+                parseInput(document.getElementById('middle3').value),
+                parseInput(document.getElementById('middle4').value),
+                parseInput(document.getElementById('middle5').value),
+                parseInput(document.getElementById('middle6').value)
             ];
-            const temporaryValues = [
-                parseFloat(document.getElementById('temporary1').value),
-                parseFloat(document.getElementById('temporary2').value),
-                parseFloat(document.getElementById('temporary3').value),
-                parseFloat(document.getElementById('temporary4').value),
-                parseFloat(document.getElementById('temporary5').value),
-                parseFloat(document.getElementById('temporary6').value)
+            const basalValues = [
+                parseInput(document.getElementById('basal1').value),
+                parseInput(document.getElementById('basal2').value),
+                parseInput(document.getElementById('basal3').value),
+                parseInput(document.getElementById('basal4').value),
+                parseInput(document.getElementById('basal5').value),
+                parseInput(document.getElementById('basal6').value)
             ];
 
             // Calculate means
             const meanApical = apicalValues.reduce((a, b) => a + b, 0) / apicalValues.length;
-            const meanMid = midValues.reduce((a, b) => a + b, 0) / midValues.length;
-            const meanTemporary = temporaryValues.reduce((a, b) => a + b, 0) / temporaryValues.length;
+            const meanMiddle = middleValues.reduce((a, b) => a + b, 0) / middleValues.length;
+            const meanBasal = basalValues.reduce((a, b) => a + b, 0) / basalValues.length;
 
             // Perform operation
-            const result = meanApical / (meanMid + meanTemporary);
+            const result = meanApical / (meanMiddle + meanBasal);
 
             // Display results
             let message = `Mean Apical: ${meanApical.toFixed(1)}<br>`;
-            message += `Mean Mid: ${meanMid.toFixed(1)}<br>`;
-            message += `Mean Temporary: ${meanTemporary.toFixed(1)}<br>`;
-            message += `Result: ${result.toFixed(2)}<br>`;
+            message += `Mean Middle: ${meanMiddle.toFixed(1)}<br>`;
+            message += `Mean Basal: ${meanBasal.toFixed(1)}<br>`;
+            message += `<div id="separator"></div>`;
+            message += `Apical Sparing Ratio: ${result.toFixed(2)}<br>`;
 
             if (result > 1) {
                 message += "Apical Sparing! ;)";
