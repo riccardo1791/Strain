@@ -41,7 +41,7 @@
             text-align: center;
             color: #004085;
         }
-        input[type="tel"] {
+        input[type="text"] {
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
@@ -88,34 +88,34 @@
 <body>
     <h1>Strain Calculator</h1>
     <div class="description">
-        to insert positive strain values put a "+" in front of the number
+        to insert positive strain value put a "+" in front of the number
     </div>
     <form id="calculator-form">
         <div class="form-container">
             <div class="form-column">
                 <label for="apical">Apical</label>
-                <input type="tel" pattern="[+0-9]*[.,]?[0-9]+" id="apical1" required>
-                <input type="tel" pattern="[+0-9]*[.,]?[0-9]+" id="apical2" required>
-                <input type="tel" pattern="[+0-9]*[.,]?[0-9]+" id="apical3" required>
-                <input type="tel" pattern="[+0-9]*[.,]?[0-9]+" id="apical4" required>
+                <input type="text" inputmode="numeric" pattern="[+0-9]*[.,]?[0-9]+" id="apical1" required>
+                <input type="text" inputmode="numeric" pattern="[+0-9]*[.,]?[0-9]+" id="apical2" required>
+                <input type="text" inputmode="numeric" pattern="[+0-9]*[.,]?[0-9]+" id="apical3" required>
+                <input type="text" inputmode="numeric" pattern="[+0-9]*[.,]?[0-9]+" id="apical4" required>
             </div>
             <div class="form-column">
                 <label for="middle">Middle</label>
-                <input type="tel" pattern="[+0-9]*[.,]?[0-9]+" id="middle1" required>
-                <input type="tel" pattern="[+0-9]*[.,]?[0-9]+" id="middle2" required>
-                <input type="tel" pattern="[+0-9]*[.,]?[0-9]+" id="middle3" required>
-                <input type="tel" pattern="[+0-9]*[.,]?[0-9]+" id="middle4" required>
-                <input type="tel" pattern="[+0-9]*[.,]?[0-9]+" id="middle5" required>
-                <input type="tel" pattern="[+0-9]*[.,]?[0-9]+" id="middle6" required>
+                <input type="text" inputmode="numeric" pattern="[+0-9]*[.,]?[0-9]+" id="middle1" required>
+                <input type="text" inputmode="numeric" pattern="[+0-9]*[.,]?[0-9]+" id="middle2" required>
+                <input type="text" inputmode="numeric" pattern="[+0-9]*[.,]?[0-9]+" id="middle3" required>
+                <input type="text" inputmode="numeric" pattern="[+0-9]*[.,]?[0-9]+" id="middle4" required>
+                <input type="text" inputmode="numeric" pattern="[+0-9]*[.,]?[0-9]+" id="middle5" required>
+                <input type="text" inputmode="numeric" pattern="[+0-9]*[.,]?[0-9]+" id="middle6" required>
             </div>
             <div class="form-column">
                 <label for="basal">Basal</label>
-                <input type="tel" pattern="[+0-9]*[.,]?[0-9]+" id="basal1" required>
-                <input type="tel" pattern="[+0-9]*[.,]?[0-9]+" id="basal2" required>
-                <input type="tel" pattern="[+0-9]*[.,]?[0-9]+" id="basal3" required>
-                <input type="tel" pattern="[+0-9]*[.,]?[0-9]+" id="basal4" required>
-                <input type="tel" pattern="[+0-9]*[.,]?[0-9]+" id="basal5" required>
-                <input type="tel" pattern="[+0-9]*[.,]?[0-9]+" id="basal6" required>
+                <input type="text" inputmode="numeric" pattern="[+0-9]*[.,]?[0-9]+" id="basal1" required>
+                <input type="text" inputmode="numeric" pattern="[+0-9]*[.,]?[0-9]+" id="basal2" required>
+                <input type="text" inputmode="numeric" pattern="[+0-9]*[.,]?[0-9]+" id="basal3" required>
+                <input type="text" inputmode="numeric" pattern="[+0-9]*[.,]?[0-9]+" id="basal4" required>
+                <input type="text" inputmode="numeric" pattern="[+0-9]*[.,]?[0-9]+" id="basal5" required>
+                <input type="text" inputmode="numeric" pattern="[+0-9]*[.,]?[0-9]+" id="basal6" required>
             </div>
         </div>
         
@@ -183,5 +183,3 @@
             document.getElementById('result').innerHTML = message;
         }
     </script>
-</body>
-</html>
